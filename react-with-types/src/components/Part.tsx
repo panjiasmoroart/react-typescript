@@ -13,7 +13,9 @@ const Part: React.FC<{ part: CoursePartType }> = ({ part }) => {
       return (
         <div>
           <p>
-            {part.name} {part.exerciseCount}
+            <strong>
+              {part.name} {part.exerciseCount}
+            </strong>
           </p>
           <p>{part.description}</p>
           <hr></hr>
@@ -24,7 +26,9 @@ const Part: React.FC<{ part: CoursePartType }> = ({ part }) => {
       return (
         <div>
           <p>
-            {part.name} {part.exerciseCount}
+            <strong>
+              {part.name} {part.exerciseCount}
+            </strong>
           </p>
           <p>groupProjectCount {part.groupProjectCount}</p>
           <hr></hr>
@@ -35,7 +39,9 @@ const Part: React.FC<{ part: CoursePartType }> = ({ part }) => {
       return (
         <div>
           <p>
-            {part.name} {part.exerciseCount}
+            <strong>
+              {part.name} {part.exerciseCount}
+            </strong>
           </p>
           <p>{part.description}</p>
           <a href={part.exerciseSubmissionLink}>Link</a>
@@ -47,7 +53,9 @@ const Part: React.FC<{ part: CoursePartType }> = ({ part }) => {
       return (
         <div>
           <p>
-            {part.name} {part.exerciseCount}
+            <strong>
+              {part.name} {part.exerciseCount}
+            </strong>
           </p>
           <p>{part.description}</p>
           <p>Student Enrolled: {part.studentEnrolled}</p>
