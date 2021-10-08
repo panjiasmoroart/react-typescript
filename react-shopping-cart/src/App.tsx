@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
+
 // Components
-import Item from "./components/Item";
+import Item from "./components/Item/Item";
+import Cart from "./components/Cart/Cart";
 import Drawer from "@material-ui/core/Drawer";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
-import AddShoppingCart from "@material-ui/icons/AddShoppingCart";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Badge from "@material-ui/core/Badge";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+
 // Styles
 import { Wrapper } from "./App.styles";
+import { StyledButton } from "./App.styles";
 // Types
 export type CartItemType = {
   id: number;
@@ -24,25 +30,58 @@ const getProducts = async (): Promise<CartItemType[]> =>
   await (await fetch("https://fakestoreapi.com/products")).json();
 
 const App = () => {
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([] as CartItemType[]);
   const { data, isLoading, error } = useQuery<CartItemType[]>(
     "products",
     getProducts
   );
-  console.log(data);
+  // console.log(data);
 
-  const getTotalItems = () => null;
+  const getTotalItems = (items: CartItemType[]) => {
+    return items.reduce((acc: number, item) => acc + item.amount, 0);
+  };
 
   const handleAddToCart = (clickedItem: CartItemType) => {
     ///dfsd
   };
 
-  const handleRemoveCart = () => null;
+  const handleRemoveFromCart = () => null;
 
-  if (isLoading) return <LinearProgress />;
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "80px auto",
+        }}
+      >
+        <CircularProgress color="inherit" />
+        &nbsp;&nbsp;
+        <Typography variant="caption" component="div" color="inherit">
+          Loading...
+        </Typography>
+      </Box>
+    );
   if (error) return <div>Something went wrong</div>;
 
   return (
     <Wrapper>
+      <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
+        <Cart
+          cartItems={cartItems}
+          addToCart={handleAddToCart}
+          removeFromCart={handleRemoveFromCart}
+        />
+      </Drawer>
+      <StyledButton onClick={() => setCartOpen(true)}>
+        <Badge badgeContent={getTotalItems(cartItems)} color="error">
+          <AddShoppingCartIcon />
+        </Badge>
+      </StyledButton>
+
       <Grid container spacing={3}>
         {data?.map((item) => (
           <Grid item key={item.id} xs={12} sm={4}>
