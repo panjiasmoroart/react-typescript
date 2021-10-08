@@ -1,10 +1,14 @@
+import UseEffectComponent from './components/UseEffectComponent';
 import UseStateComponent from './components/UseStateComponent';
 
 function App() {
   return (
     <div>
-      <h1>Hooks useState</h1>
+      <h2>Hooks useState</h2>
       <UseStateComponent />
+
+      <h2>Hooks useEffect</h2>
+      <UseEffectComponent />
     </div>
   );
 }
