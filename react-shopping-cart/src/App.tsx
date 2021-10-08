@@ -8,6 +8,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Grid from "@material-ui/core/Grid";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import Badge from "@material-ui/core/Badge";
+// import LinearProgress from "@material-ui/core/LinearProgress";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -38,15 +39,38 @@ const App = () => {
   );
   // console.log(data);
 
-  const getTotalItems = (items: CartItemType[]) => {
-    return items.reduce((acc: number, item) => acc + item.amount, 0);
-  };
+  const getTotalItems = (items: CartItemType[]) =>
+    items.reduce((acc: number, item) => acc + item.amount, 0);
 
   const handleAddToCart = (clickedItem: CartItemType) => {
-    ///dfsd
+    // console.log("clickedItem: ", clickedItem);
+    setCartItems((prev) => {
+      // 1. is the item already added in the cart?
+      const isItemInCart = prev.find((item) => item.id === clickedItem.id);
+      if (isItemInCart) {
+        return prev.map((item) =>
+          item.id === clickedItem.id
+            ? { ...item, amount: item.amount + 1 }
+            : item
+        );
+      }
+      // First time the items is added
+      return [...prev, { ...clickedItem, amount: 1 }];
+    });
   };
 
-  const handleRemoveFromCart = () => null;
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems((prev) =>
+      prev.reduce((acc, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return acc;
+          return [...acc, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...acc, item];
+        }
+      }, [] as CartItemType[])
+    );
+  };
 
   if (isLoading)
     return (

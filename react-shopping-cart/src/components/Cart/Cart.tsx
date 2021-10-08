@@ -9,6 +9,13 @@ type Props = {
 };
 
 export default function Cart({ cartItems, addToCart, removeFromCart }: Props) {
+  const calculateTotal = (items: CartItemType[]) => {
+    return items.reduce(
+      (acc: number, item) => acc + item.amount * item.price,
+      0
+    );
+  };
+
   return (
     <Wrapper>
       <h2>Your Shopping Cart</h2>
@@ -23,6 +30,8 @@ export default function Cart({ cartItems, addToCart, removeFromCart }: Props) {
           />
         );
       })}
+
+      <h2>Total : ${calculateTotal(cartItems).toFixed(2)}</h2>
     </Wrapper>
   );
 }
