@@ -1,4 +1,6 @@
+import UseContextComponent from './components/UseContextComponent';
 import UseEffectComponent from './components/UseEffectComponent';
+import UseReducerComponent from './components/UseReducerComponent';
 import UseStateComponent from './components/UseStateComponent';
 
 function App() {
@@ -9,6 +11,12 @@ function App() {
 
       <h2>Hooks useEffect</h2>
       <UseEffectComponent />
+
+      <h3>Hooks useContext</h3>
+      <UseContextComponent />
+
+      <h3>Hooks useReducer</h3>
+      <UseReducerComponent />
     </div>
   );
 }
