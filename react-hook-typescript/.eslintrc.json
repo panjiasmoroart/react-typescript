@@ -42,7 +42,12 @@
       }
     ],
     "react/jsx-curly-newline": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "react/no-array-index-key": "off",
+    "no-unused-vars": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "react/prop-types": 1
   },
   "settings": {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
